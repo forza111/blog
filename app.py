@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -30,14 +30,23 @@ def about():
     return render_template('/about.html')
 
 
-@app.route('/create-article', metrhods = ['POST', 'GET'])
+@app.route('/create-article', methods = ['POST', 'GET'])
 def create_article():
-    if request.method = 'POST':
+    if request.method == 'POST':
         title = request.form['title']
         intro = request.form['intro']
         text = request.form['text']
 
         article = Articles(title=title, intro = intro, text=text)
+
+        try:
+            db.session.add(article)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'При добавлении страницы произошла ошибка'
+
+
     else:
         return render_template('create-article.html')
 
