@@ -11,6 +11,9 @@
     <div class="alert alert-info">
         <p>{{article.text}}</p>
         <p><b>Дата: {{ article.date.date() }}</b></p>
+        <a href="/posts/{{ article.id }}/del" class="btn btn-danger">Удалить</a>
+        <a href="/posts/{{ article.id }}/update" class="btn btn-success">Редактировать</a>
+
     </div>
 
 </div>
